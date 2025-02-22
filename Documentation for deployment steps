@@ -1,0 +1,70 @@
+Deployment Steps:
+
+1. Create a Namespace:
+To keep resources organized, create a dedicated namespace:
+
+command: kubectl apply -f namespace.yaml
+
+2. Deploy Microservices:
+Each microservice has a deployment YAML. Apply the deployment files:
+
+command: kubectl apply -f service-a-deployment.yaml
+
+Check the deployment status:
+command: kubectl get deployments -n microservices-app
+
+3. Configure Services:
+To enable communication between microservices, apply service definitions:
+
+command: kubectl apply -f service-a-service.yaml
+
+Verify service availability:
+
+command: kubectl get services -n microservices-app
+
+4. Apply ConfigMaps and Secrets:
+To manage environment variables and sensitive data:
+
+command: kubectl apply -f service-a-configmap.yaml
+command: kubectl apply -f service-a-secrets.yaml
+
+Check configuration:
+
+command: kubectl get configmaps -n microservices-app
+command: kubectl get secrets -n microservices-app
+
+5. Deploy Ingress Controller:
+Ingress provides external access to microservices:
+
+command: kubectl apply -f ingress.yaml
+
+Check ingress rules:
+
+command: kubectl get ingress -n microservices-app
+
+6. Validate the Deployment:
+Ensure all pods are running:
+
+command: kubectl get pods -n microservices-app
+
+Access the application via the configured hostname:
+
+command: curl http://myapp.example.com/service-a
+
+Cleanup:
+To remove all deployed resources:
+
+command: kubectl delete namespace microservices-app
+
+Troubleshooting:
+- Check pod logs:
+
+command: kubectl logs -n microservices-app <pod-name>
+
+- Describe failing resources:
+
+command: kubectl describe pod -n microservices-app <pod-name>
+
+- Restart a pod:
+
+command: kubectl rollout restart deployment/service-a -n microservices-app
